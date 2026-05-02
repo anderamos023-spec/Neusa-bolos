@@ -1,0 +1,1973 @@
+<!doctype html>
+<html lang="pt-BR">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <title>Neusa Bolos</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #fff5f7 0%, #ffe4eb 100%);
+    }
+
+    .app-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #fff5f7 0%, #ffe4eb 100%);
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, #d4347e 0%, #c1275c 100%);
+      padding: 1rem;
+      box-shadow: 0 4px 15px rgba(212, 52, 126, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-title {
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      display: block;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #c1275c;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-menu a {
+        padding: 1.2rem;
+        border-radius: 0;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+      }
+
+      .nav-menu a:last-child {
+        border-bottom: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .nav-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 2rem 1rem;
+    }
+
+    .section {
+      display: none;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, #fff5f7 0%, #ffe4eb 100%);
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #d4347e;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #d4347e 0%, #c1275c 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      min-height: 44px;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(212, 52, 126, 0.4);
+    }
+
+    .filter-container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #d4347e;
+      background: white;
+      color: #d4347e;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      min-height: 44px;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #d4347e;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .subcategory-container {
+      display: none;
+      margin-bottom: 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .subcategory-container.active {
+      display: flex;
+    }
+
+    .subcategory-btn {
+      padding: 0.6rem 1.2rem;
+      border: 2px solid #f08acc;
+      background: white;
+      color: #d4347e;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      min-height: 40px;
+    }
+
+    .subcategory-btn:hover,
+    .subcategory-btn.active {
+      background: #f08acc;
+      color: white;
+      border-color: #d4347e;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(212, 52, 126, 0.15);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 24px rgba(212, 52, 126, 0.25);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #f08acc 0%, #f5c2d9 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      font-weight: bold;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-name {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #d4347e;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-description {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+
+    .product-price {
+      font-size: 1.5rem;
+      color: #d4347e;
+      font-weight: bold;
+      margin-top: auto;
+      display: none;
+    }
+
+    .kit-price {
+      font-size: 1.5rem;
+      color: #d4347e;
+      font-weight: bold;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 2px solid #f08acc;
+    }
+
+    .price-info-banner {
+      background: linear-gradient(135deg, #fff5f7 0%, #ffe4eb 100%);
+      border: 2px solid #f08acc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .price-info-title {
+      font-size: 1rem;
+      color: #d4347e;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-info-value {
+      font-size: 1.8rem;
+      color: #d4347e;
+      font-weight: bold;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(212, 52, 126, 0.15);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #d4347e;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #f08acc;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #d4347e;
+    }
+
+    .form-submit {
+      background: linear-gradient(135deg, #d4347e 0%, #c1275c 100%);
+      color: white;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .form-submit:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(212, 52, 126, 0.4);
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #d4347e 0%, #c1275c 100%);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: auto;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+      }
+
+      .product-image {
+        height: 150px;
+        font-size: 3rem;
+      }
+
+      .contact-form {
+        padding: 1.5rem;
+      }
+
+      .content {
+        padding: 1rem 0.5rem;
+      }
+    }
+
+    .success-message {
+      background: #4caf50;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      text-align: center;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .category-title {
+      font-size: 2rem;
+      color: #d4347e;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: bold;
+    }
+
+    .banner-showcase {
+      width: 100%;
+      margin: 2rem 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(212, 52, 126, 0.25);
+      height: 350px;
+    }
+
+    .banner-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .featured-title {
+      font-size: 1.75rem;
+      color: #d4347e;
+      text-align: center;
+      margin: 3rem 0 2rem 0;
+      font-weight: bold;
+    }
+
+    .social-links-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.5rem 2rem;
+      background: white;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #d4347e;
+      font-weight: 600;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(212, 52, 126, 0.15);
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .social-link:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(212, 52, 126, 0.25);
+    }
+
+    .social-emoji {
+      font-size: 2.5rem;
+    }
+
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s ease;
+      z-index: 999;
+      text-decoration: none;
+      font-size: 2rem;
+    }
+
+    .floating-whatsapp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.6);
+    }
+
+    @media (max-width: 768px) {
+      .banner-showcase {
+        height: 250px;
+        margin: 1.5rem 0;
+      }
+
+      .featured-title {
+        font-size: 1.4rem;
+        margin: 2rem 0 1.5rem 0;
+      }
+
+      .floating-whatsapp {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+
+      .social-link {
+        padding: 1.2rem 1.5rem;
+        font-size: 1.1rem;
+      }
+
+      .social-emoji {
+        font-size: 2rem;
+      }
+
+      .modal-content {
+        width: 95%;
+        max-height: 90vh;
+        padding: 1.5rem;
+      }
+
+      .modal-header {
+        font-size: 1.3rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .option-item {
+        padding: 0.9rem;
+        font-size: 1rem;
+      }
+
+      .option-item input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+      }
+
+      .modal-btn {
+        padding: 0.85rem 1.5rem;
+        font-size: 1rem;
+        min-height: 44px;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        font-size: 1rem;
+        padding: 0.85rem;
+        min-height: 44px;
+      }
+
+      .monte-input {
+        font-size: 1rem;
+        min-height: 44px;
+        padding: 0.85rem;
+      }
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(212, 52, 126, 0.3);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-header {
+      font-size: 1.5rem;
+      color: #d4347e;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #d4347e;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      transform: rotate(90deg);
+    }
+
+    .modal-section {
+      margin-bottom: 2rem;
+    }
+
+    .modal-section-title {
+      font-size: 1.1rem;
+      color: #d4347e;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .option-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      border: 2px solid #f08acc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .option-item:hover {
+      background: #fff5f7;
+      border-color: #d4347e;
+    }
+
+    .option-item input[type="radio"] {
+      margin-right: 1rem;
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      accent-color: #d4347e;
+    }
+
+    .option-label {
+      flex: 1;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .modal-summary {
+      background: #fff5f7;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border: 2px solid #f08acc;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .summary-item strong {
+      color: #d4347e;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #d4347e;
+      border-top: 2px solid #f08acc;
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-btn-cancel {
+      background: #f08acc;
+      color: white;
+    }
+
+    .modal-btn-cancel:hover {
+      background: #e06ba8;
+    }
+
+    .modal-btn-confirm {
+      background: linear-gradient(135deg, #d4347e 0%, #c1275c 100%);
+      color: white;
+    }
+
+    .modal-btn-confirm:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(212, 52, 126, 0.3);
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .whatsapp-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #25d366;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      min-height: 44px;
+    }
+
+    .whatsapp-btn:hover {
+      background: #20ba5a;
+      transform: scale(1.05);
+    }
+
+    .monte-section {
+      display: none;
+    }
+
+    .monte-container {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(212, 52, 126, 0.15);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .monte-category {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid #f08acc;
+    }
+
+    .monte-category:last-child {
+      border-bottom: none;
+    }
+
+    .monte-title {
+      font-size: 1.4rem;
+      color: #d4347e;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    .monte-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .monte-item:hover {
+      border-color: #d4347e;
+      box-shadow: 0 4px 12px rgba(212, 52, 126, 0.15);
+    }
+
+    .monte-label {
+      display: block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .monte-input-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .monte-input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 2px solid #d4347e;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #d4347e;
+      background: white;
+    }
+
+    .monte-input::placeholder {
+      color: #bbb;
+    }
+
+    .monte-input:focus {
+      outline: none;
+      border-color: #c1275c;
+      box-shadow: 0 0 0 3px rgba(212, 52, 126, 0.1);
+    }
+
+    .monte-unit {
+      color: #666;
+      font-weight: 500;
+      min-width: 50px;
+      text-align: right;
+    }
+
+    .monte-price {
+      display: block;
+      color: #d4347e;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .monte-summary {
+      background: linear-gradient(135deg, #fff5f7 0%, #ffe4eb 100%);
+      border: 3px solid #d4347e;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .monte-summary-total {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .monte-summary-total strong {
+      color: #d4347e;
+      font-size: 2rem;
+    }
+
+    .monte-btn {
+      background: linear-gradient(135deg, #d4347e 0%, #c1275c 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .monte-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(212, 52, 126, 0.4);
+    }
+
+    .monte-section {
+      display: none;
+    }
+
+    .monte-section.active {
+      display: block;
+    }
+
+    .monte-emoji-large {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .monte-desc {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 0.5rem;
+    }
+
+    .monte-summary-items {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid #f08acc;
+    }
+
+    .monte-item-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f08acc;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    .monte-item-line:last-child {
+      border-bottom: none;
+    }
+
+    .monte-item-name {
+      flex: 1;
+    }
+
+    .monte-item-qty {
+      margin: 0 1rem;
+      color: #d4347e;
+      font-weight: 600;
+    }
+
+    .monte-item-price {
+      color: #d4347e;
+      font-weight: 600;
+      min-width: 80px;
+      text-align: right;
+    }
+
+    .monte-item-remove {
+      background: none;
+      border: none;
+      color: #d4347e;
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-left: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .monte-item-remove:hover {
+      color: #c1275c;
+    }
+
+    @media (max-width: 768px) {
+      .monte-container {
+        padding: 1.5rem;
+      }
+
+      .monte-items {
+        grid-template-columns: 1fr;
+      }
+
+      .monte-summary-total {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .monte-summary-total strong {
+        font-size: 1.5rem;
+      }
+
+      .monte-title {
+        font-size: 1.2rem;
+      }
+
+      .monte-item {
+        padding: 1.2rem;
+      }
+
+      .monte-btn {
+        min-height: 48px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="app-wrapper">
+   <!-- NAVBAR -->
+   <nav class="navbar">
+    <div class="nav-container">
+     <div class="nav-title">
+      Neusa Bolos
+     </div><button class="hamburger" id="hamburger"> <i data-lucide="menu"></i> </button>
+     <ul class="nav-menu" id="navMenu">
+      <li><a href="#inicio" class="nav-link active" data-section="inicio">Início</a></li>
+      <li><a href="#cardapio" class="nav-link" data-section="cardapio">Cardápio</a></li>
+      <li><a href="#monte" class="nav-link" data-section="monte">Monte seu Pedido</a></li>
+      <li><a href="#contato" class="nav-link" data-section="contato">Contato</a></li>
+     </ul>
+    </div>
+   </nav><!-- CONTENT -->
+   <div class="content">
+    <!-- SEÇÃO INÍCIO -->
+    <section class="section active" id="inicio">
+     <div class="hero">
+      <h1>Bem-vindo à Neusa Bolos</h1>
+      <p>Bolos deliciosos feitos com amor e ingredientes de qualidade</p><button class="cta-button" onclick="navigateToSection('cardapio')"> Ver Cardápio </button>
+     </div>
+     <div class="products-grid" id="featuredProducts">
+     </div>
+    </section><!-- SEÇÃO CARDÁPIO -->
+    <section class="section" id="cardapio">
+     <h2 class="category-title">Nosso Cardápio</h2><!-- Filtros principais -->
+     <div class="filter-container">
+      <button class="filter-btn active" onclick="filterCategory('bolos', event)">Bolos</button> <button class="filter-btn" onclick="filterCategory('salgados', event)">Salgados</button> <button class="filter-btn" onclick="filterCategory('doce', event)">Doces</button> <button class="filter-btn" onclick="filterCategory('kitfesta', event)">Kit Festa</button>
+     </div><!-- Subcategorias para Bolos -->
+     <div class="subcategory-container" id="bolosSubcategories">
+      <button class="subcategory-btn active" onclick="filterSubcategory('bolos', 'especial', event)">Recheio Especial</button> <button class="subcategory-btn" onclick="filterSubcategory('bolos', 'tradicional', event)">Tradicional</button> <button class="subcategory-btn" onclick="filterSubcategory('bolos', 'mousse', event)">Mousse</button> <button class="subcategory-btn" onclick="filterSubcategory('bolos', 'caserinho', event)">Caserinho</button>
+     </div><!-- Banner de preço -->
+     <div class="price-info-banner" id="priceInfoBanner">
+      <div class="price-info-title" id="priceInfoTitle">
+       Preço
+      </div>
+      <div class="price-info-value" id="priceInfoValue">
+       -
+      </div>
+     </div><!-- Grid de produtos -->
+     <div class="products-grid" id="productsGrid">
+      <!-- Produtos serão inseridos aqui via JavaScript -->
+     </div>
+    </section><!-- SEÇÃO MONTE SEU PEDIDO -->
+    <section class="section monte-section" id="monte">
+     <h2 class="category-title">Monte seu Pedido</h2>
+     <div class="monte-container">
+      <div class="monte-items">
+       <!-- BOLOS -->
+       <div class="monte-item" onclick="openMonteModal('bolos')" style="cursor: pointer; text-align: center; padding: 1.5rem; border: 2px solid #f08acc; border-radius: 12px;">
+        <div class="monte-emoji-large">
+         🍰
+        </div>
+        <div class="monte-label">
+         Bolos Recheados
+        </div>
+        <div class="monte-desc">
+         A partir de R$ 60,00/kg
+        </div>
+       </div><!-- SALGADOS -->
+       <div class="monte-item" onclick="openMonteModal('salgados')" style="cursor: pointer; text-align: center; padding: 1.5rem; border: 2px solid #f08acc; border-radius: 12px;">
+        <div class="monte-emoji-large">
+         🥟
+        </div>
+        <div class="monte-label">
+         Salgados Sortidos
+        </div>
+        <div class="monte-desc">
+         R$ 75,00/cento
+        </div>
+       </div><!-- DOCES -->
+       <div class="monte-item" onclick="openMonteModal('doces')" style="cursor: pointer; text-align: center; padding: 1.5rem; border: 2px solid #f08acc; border-radius: 12px;">
+        <div class="monte-emoji-large">
+         🍫
+        </div>
+        <div class="monte-label">
+         Doces Tradicionais
+        </div>
+        <div class="monte-desc">
+         R$ 95,00/cento
+        </div>
+       </div>
+      </div><!-- RESUMO DO MONTE -->
+      <div class="monte-summary" id="monteResumoContainer" style="display: none; margin-top: 2rem;">
+       <h3 style="color: #d4347e; font-weight: bold; margin-bottom: 1rem; font-size: 1.2rem;">Seu Pedido:</h3>
+       <div id="monteResumoItems" class="monte-summary-items"></div>
+       <div class="monte-summary-total">
+        <span>Total do Pedido:</span> <strong id="monteTotalPrice">R$ 0,00</strong>
+       </div>
+      </div><!-- BOTÃO PARA ENVIAR --> <button id="monteFinalizarBtn" class="monte-btn" onclick="sendMonteToWhatsapp()" style="display: none; margin-top: 2rem; min-height: 48px;">Enviar Pedido por WhatsApp</button>
+     </div>
+    </section><!-- SEÇÃO CONTATO -->
+    <section class="section" id="contato">
+     <h2 class="category-title">Entre em Contato</h2>
+     <div class="social-links-container"><a href="https://wa.me/5542999902061" target="_blank" rel="noopener noreferrer" class="social-link">WhatsApp</a> <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a> <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-link">Facebook</a>
+     </div>
+    </section>
+   </div><!-- MODAL DE CUSTOMIZAÇÃO DE KIT -->
+   <div class="modal-overlay" id="kitModal">
+    <div class="modal-content">
+     <div class="modal-header">
+      <span id="kitModalTitle">Personalizar Kit</span> <button class="modal-close" onclick="closeKitModal()">✕</button>
+     </div>
+     <div class="modal-section">
+      <label class="modal-section-title">Escolha a massa:</label>
+      <div class="option-group">
+       <label class="option-item"> <input type="radio" name="massa" value="Pão de ló" onchange="updateKitPrice()"> <span class="option-label">Pão de ló</span> </label> <label class="option-item"> <input type="radio" name="massa" value="Chocolate" onchange="updateKitPrice()"> <span class="option-label">Chocolate</span> </label> <label class="option-item"> <input type="radio" name="massa" value="Amanteigada" onchange="updateKitPrice()"> <span class="option-label">Amanteigada</span> </label>
+      </div>
+     </div>
+     <div class="modal-section">
+      <label class="modal-section-title">Escolha o recheio:</label>
+      <div class="option-group">
+       <label class="option-item"> <input type="radio" name="recheio" value="Creme" onchange="updateKitPrice()"> <span class="option-label">Creme</span> </label> <label class="option-item"> <input type="radio" name="recheio" value="Prestigio" onchange="updateKitPrice()"> <span class="option-label">Prestigio</span> </label> <label class="option-item"> <input type="radio" name="recheio" value="Quatro leite" onchange="updateKitPrice()"> <span class="option-label">Quatro leite</span> </label> <label class="option-item"> <input type="radio" name="recheio" value="Dois amores" onchange="updateKitPrice()"> <span class="option-label">Dois amores</span> </label>
+      </div>
+     </div>
+     <div class="modal-summary" id="kitSummary">
+      <div class="summary-item">
+       <span>Massa:</span> <strong id="sumMassa">-</strong>
+      </div>
+      <div class="summary-item">
+       <span>Recheio:</span> <strong id="sumRecheio">-</strong>
+      </div>
+      <div class="summary-total">
+       <span>Total:</span> <strong id="sumTotal">-</strong>
+      </div>
+     </div>
+     <div class="modal-actions">
+      <button class="modal-btn modal-btn-cancel" onclick="closeKitModal()">Cancelar</button> <button class="modal-btn modal-btn-confirm" onclick="confirmKitSelection()">Solicitar</button>
+     </div>
+    </div>
+   </div><!-- FLOATING WHATSAPP --> <a href="https://wa.me/5542999902061" target="_blank" rel="noopener noreferrer" class="floating-whatsapp"> 💬 </a><!-- FOOTER -->
+   <footer class="footer" id="footer">
+    © 2024 Neusa Bolos. Todos os direitos reservados.
+   </footer>
+  </div>
+  <script>
+    lucide.createIcons();
+
+    const defaultConfig = {
+      site_title: 'Neusa Bolos',
+      footer_text: '© 2024 Neusa Bolos. Todos os direitos reservados.'
+    };
+
+    let config = { ...defaultConfig };
+
+    // Dados dos produtos
+    const products = {
+      bolos: {
+        especial: [
+          { name: 'Kinder Bueno', emoji: '🍰', description: '', price: 'R$ 80,00/kg' },
+          { name: 'Olho de Sogra', emoji: '🍰', description: '', price: 'R$ 80,00/kg' },
+          { name: 'Laka com Oreo', emoji: '🍰', description: '', price: 'R$ 80,00/kg' },
+          { name: 'Creme de Avelã', emoji: '🍰', description: '', price: 'R$ 80,00/kg' },
+          { name: 'Sonho de Valsa', emoji: '🍰', description: '', price: 'R$ 80,00/kg' },
+          { name: 'Ganache de Nutella', emoji: '🍰', description: '', price: 'R$ 80,00/kg' }
+        ],
+        tradicional: [
+          { name: 'Creme', emoji: '🍰', description: '', price: 'R$ 60,00/kg' },
+          { name: 'Paçoca', emoji: '🍰', description: '', price: 'R$ 60,00/kg' },
+          { name: 'Prestigio', emoji: '🍰', description: '', price: 'R$ 60,00/kg' },
+          { name: 'Brigadeiro', emoji: '🍰', description: '', price: 'R$ 60,00/kg' },
+          { name: 'Quatro Leite', emoji: '🍰', description: '', price: 'R$ 60,00/kg' },
+          { name: 'Dois Amores', emoji: '🍰', description: '', price: 'R$ 60,00/kg' }
+        ],
+        mousse: [
+          { name: 'Maracujá', emoji: '🍰', description: '', price: 'R$ 67,00/kg' },
+          { name: 'Chocolate', emoji: '🍰', description: '', price: 'R$ 67,00/kg' },
+          { name: 'Leite Ninho', emoji: '🍰', description: '', price: 'R$ 67,00/kg' },
+          { name: 'Doce de Leite', emoji: '🍰', description: '', price: 'R$ 67,00/kg' },
+          { name: 'Ouro Branco', emoji: '🍰', description: '', price: 'R$ 67,00/kg' },
+          { name: 'Chocolate Trufado', emoji: '🍰', description: '', price: 'R$ 67,00/kg' }
+        ],
+        caserinho: [
+          { name: 'Bolo Limão', emoji: '🍰', description: '', price: 'R$ 25,00' },
+          { name: 'Coco', emoji: '🍰', description: '', price: 'R$ 25,00' },
+          { name: 'Chocolate', emoji: '🍰', description: '', price: 'R$ 25,00' },
+          { name: 'Ninho', emoji: '🍰', description: '', price: 'R$ 25,00' },
+          { name: 'Paçoca', emoji: '🍰', description: '', price: 'R$ 25,00' },
+          { name: 'Cenoura', emoji: '🍰', description: '', price: 'R$ 25,00' },
+          { name: 'Fubá', emoji: '🍰', description: '', price: 'R$ 25,00' }
+        ]
+      },
+      salgados: {
+        default: [
+          { name: 'Coxinha de Frango', emoji: '🥟', description: '', price: 'R$ 75,00/cento' },
+          { name: 'Risole Pizza', emoji: '🥟', description: '', price: 'R$ 75,00/cento' },
+          { name: 'Pastel de Carne', emoji: '🥟', description: '', price: 'R$ 75,00/cento' },
+          { name: 'Enroladinho de Salsicha', emoji: '🥟', description: '', price: 'R$ 75,00/cento' }
+        ]
+      },
+      doce: {
+        default: [
+          { name: 'Brigadeiro', emoji: '🍫', description: '', price: 'R$ 95,00/cento' },
+          { name: 'Beijinho', emoji: '🍫', description: '', price: 'R$ 95,00/cento' },
+          { name: 'Dois Amores', emoji: '🍫', description: '', price: 'R$ 95,00/cento' },
+          { name: 'Ninho', emoji: '🍫', description: '', price: 'R$ 95,00/cento' }
+        ]
+      },
+      kitfesta: {
+        default: [
+          { name: 'Kit Aniversário 10 pessoas', emoji: '🎉', description: '1,5 kg de bolo + 80 salgadinhos + 60 dochinhos', price: 'R$ 205,00', customizable: true },
+          { name: 'Kit Aniversário 15 pessoas', emoji: '🎉', description: '2 kg de bolo + 120 salgadinhos + 90 dochinhos', price: 'R$ 275,00', customizable: true },
+          { name: 'Kit Aniversário 20 pessoas', emoji: '🎉', description: '2,5 kg de bolo + 160 salgadinhos + 120 dochinhos', price: 'R$ 345,00', customizable: true },
+          { name: 'Kit Aniversário 30 pessoas', emoji: '🎉', description: '3 kg de bolo + 240 salgadinhos + 180 dochinhos', price: 'R$ 505,00', customizable: true },
+          { name: 'Kit Aniversário 40 pessoas', emoji: '🎉', description: '4 kg de bolo + 320 salgadinhos + 240 dochinhos', price: 'R$ 680,00', customizable: true },
+          { name: 'Kit Aniversário 50 pessoas', emoji: '🎉', description: '5 kg de bolo + 400 salgadinhos + 300 dochinhos', price: 'R$ 840,00', customizable: true }
+        ]
+      }
+    };
+
+    let currentCategory = 'bolos';
+    let currentSubcategory = 'especial';
+
+    // Elementos do DOM
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const productsGrid = document.getElementById('productsGrid');
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    const footer = document.getElementById('footer');
+
+    // Hamburger menu
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // Navegação
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const section = link.getAttribute('data-section');
+        navigateToSection(section);
+        navMenu.classList.remove('active');
+      });
+    });
+
+    function navigateToSection(sectionId) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        targetSection.classList.add('active');
+      }
+      
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-section') === sectionId) {
+          link.classList.add('active');
+        }
+      });
+
+      window.scrollTo(0, 0);
+    }
+
+    function filterCategory(category, event) {
+      event.preventDefault();
+      currentCategory = category;
+      
+      // Mostrar/esconder seções apropriadas
+      const productsGrid = document.getElementById('productsGrid');
+      const priceInfoBanner = document.getElementById('priceInfoBanner');
+      
+      productsGrid.style.display = 'grid';
+      priceInfoBanner.style.display = 'block';
+      currentSubcategory = category === 'bolos' ? 'especial' : 'default';
+
+      // Atualizar botões de filtro
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Mostrar/esconder subcategorias
+      document.getElementById('bolosSubcategories').classList.remove('active');
+
+      if (category === 'bolos') {
+        document.getElementById('bolosSubcategories').classList.add('active');
+      }
+
+      updatePriceInfo();
+      renderProducts();
+    }
+
+    function filterSubcategory(category, subcategory, event) {
+      event.preventDefault();
+      currentSubcategory = subcategory;
+
+      // Atualizar botões de subcategoria
+      event.target.parentElement.querySelectorAll('.subcategory-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      updatePriceInfo();
+      renderProducts();
+    }
+
+    function updatePriceInfo() {
+      const priceInfoBanner = document.getElementById('priceInfoBanner');
+      const priceInfoTitle = document.getElementById('priceInfoTitle');
+      const priceInfoValue = document.getElementById('priceInfoValue');
+
+      // Esconder painel para Kit Festa
+      if (currentCategory === 'kitfesta') {
+        priceInfoBanner.style.display = 'none';
+        return;
+      }
+
+      priceInfoBanner.style.display = 'block';
+      let priceText = '-';
+      let categoryText = '';
+
+      if (currentCategory === 'bolos') {
+        if (currentSubcategory === 'especial') {
+          priceText = 'R$ 80,00/KG';
+          categoryText = 'Recheio Especial';
+        } else if (currentSubcategory === 'tradicional') {
+          priceText = 'R$ 60,00/KG';
+          categoryText = 'Bolo Tradicional';
+        } else if (currentSubcategory === 'mousse') {
+          priceText = 'R$ 67,00/KG';
+          categoryText = 'Bolo Mousse';
+        } else if (currentSubcategory === 'caserinho') {
+          priceText = 'R$ 25,00';
+          categoryText = 'Bolo Caserinho';
+        }
+      } else if (currentCategory === 'salgados') {
+        priceText = 'R$ 75,00/CENTO';
+        categoryText = 'Salgados';
+      } else if (currentCategory === 'doce') {
+        priceText = 'R$ 95,00/CENTO';
+        categoryText = 'Doces Tradicionais';
+      }
+
+      priceInfoTitle.textContent = categoryText;
+      priceInfoValue.textContent = priceText;
+    }
+
+    function renderProducts() {
+      productsGrid.innerHTML = '';
+
+      let items = [];
+      if (currentCategory === 'bolos') {
+        items = products.bolos[currentSubcategory] || [];
+      } else {
+        items = products[currentCategory].default || [];
+      }
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        
+        // Adicionar evento de clique para kits
+        if (currentCategory === 'kitfesta') {
+          card.style.cursor = 'pointer';
+          card.addEventListener('click', () => openKitModal(item));
+          card.innerHTML = `
+            <div class="product-image">${item.emoji}</div>
+            <div class="product-info">
+              <div class="product-name">${item.name}</div>
+              <div class="product-description">${item.description}</div>
+              <div class="kit-price">${item.price}</div>
+            </div>
+          `;
+        } else if (currentCategory === 'bolos' && currentSubcategory === 'caserinho') {
+          card.innerHTML = `
+            <div class="product-image">${item.emoji}</div>
+            <div class="product-info">
+              <div class="product-name">${item.name}</div>
+              <div class="product-description">${item.description}</div>
+              <div class="product-price">${item.price || 'Solicitar orçamento'}</div>
+              <button class="whatsapp-btn" onclick="sendProductToWhatsapp('${item.name}', '${item.price}')">
+                <i data-lucide="message-circle"></i> Pedir
+              </button>
+            </div>
+          `;
+          setTimeout(() => lucide.createIcons(), 0);
+        } else {
+          card.innerHTML = `
+            <div class="product-image">${item.emoji}</div>
+            <div class="product-info">
+              <div class="product-name">${item.name}</div>
+              <div class="product-description">${item.description}</div>
+              <div class="product-price">${item.price || 'Solicitar orçamento'}</div>
+            </div>
+          `;
+        }
+        productsGrid.appendChild(card);
+      });
+    }
+
+    function sendProductToWhatsapp(productName, price) {
+  const message = encodeURIComponent(
+    `Olá! Gostaria de pedir um Caserinho de ${productName} - ${price}`
+  );
+
+  window.open(`https://wa.me/5542999902061?text=${message}`, '_blank');
+}
+    let currentKitData = null;
+
+    function openKitModal(kitItem) {
+      currentKitData = kitItem;
+      document.getElementById('kitModalTitle').textContent = kitItem.name;
+      document.getElementById('kitModal').classList.add('active');
+      
+      // Reset radio buttons
+      document.querySelectorAll('input[name="massa"]').forEach(el => el.checked = false);
+      document.querySelectorAll('input[name="recheio"]').forEach(el => el.checked = false);
+      
+      updateKitPrice();
+    }
+
+    function closeKitModal() {
+      document.getElementById('kitModal').classList.remove('active');
+      currentKitData = null;
+    }
+
+    function updateKitPrice() {
+      const massaSelected = document.querySelector('input[name="massa"]:checked');
+      const recheioSelected = document.querySelector('input[name="recheio"]:checked');
+      
+      const massaText = massaSelected ? massaSelected.value : '-';
+      const recheioText = recheioSelected ? recheioSelected.value : '-';
+      
+      document.getElementById('sumMassa').textContent = massaText;
+      document.getElementById('sumRecheio').textContent = recheioText;
+      
+      // Mostrar o preço base do kit (que já inclui massa e recheio)
+      document.getElementById('sumTotal').textContent = currentKitData ? currentKitData.price : 'Selecione as opções';
+    }
+
+    function confirmKitSelection() {
+      const massa = document.querySelector('input[name="massa"]:checked');
+      const recheio = document.querySelector('input[name="recheio"]:checked');
+      
+      if (!massa || !recheio) {
+        alert('Por favor, escolha a massa e o recheio!');
+        return;
+      }
+      
+      const kitName = currentKitData.name;
+      const kitPrice = currentKitData.price;
+      const message = encodeURIComponent(`Olá! Gostaria de pedir um ${kitName} - ${kitPrice}\nMassa: ${massa.value}\nRecheio: ${recheio.value}`);
+      window.open(`https://wa.me/5542999902061?text=${message}`, '_blank');
+      closeKitModal();
+    }
+
+    let monteCart = {
+      bolos: [],
+      salgados: 0,
+      doces: []
+    };
+
+    function openMonteModal(category) {
+      if (category === 'bolos') {
+        openBolosSelectionModal();
+      } else if (category === 'salgados') {
+        openSalgadosModal();
+      } else if (category === 'doces') {
+        openDocesModal();
+      }
+    }
+
+    function openBolosSelectionModal() {
+      let html = `
+        <div class="modal-overlay active" id="bolosModal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span>Selecione o Recheio</span>
+              <button class="modal-close" onclick="document.getElementById('bolosModal').remove()">✕</button>
+            </div>
+            <div class="option-group" style="margin-bottom: 2rem;">
+      `;
+
+      // Recheio Especial
+      html += `<div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f08acc;">
+        <div style="font-weight: 600; color: #d4347e; margin-bottom: 0.8rem;">Recheio Especial (R$ 80,00/kg)</div>`;
+      
+      const especiais = ['Kinder Bueno', 'Olho de Sogra', 'Laka com Oreo', 'Creme de Avelã', 'Sonho de Valsa', 'Ganache de Nutella'];
+      especiais.forEach(item => {
+        html += `
+          <label class="option-item" style="margin-bottom: 0.5rem;">
+            <input type="radio" name="bolo-selection" value="${item}|80">
+            <span class="option-label">${item}</span>
+          </label>
+        `;
+      });
+      html += `</div>`;
+
+      // Tradicional
+      html += `<div style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid #f08acc;">
+        <div style="font-weight: 600; color: #d4347e; margin-bottom: 0.8rem;">Tradicional (R$ 60,00/kg)</div>`;
+      
+      const tradicionais = ['Creme', 'Paçoca', 'Prestigio', 'Brigadeiro', 'Quatro Leite', 'Dois Amores'];
+      tradicionais.forEach(item => {
+        html += `
+          <label class="option-item" style="margin-bottom: 0.5rem;">
+            <input type="radio" name="bolo-selection" value="${item}|60">
+            <span class="option-label">${item}</span>
+          </label>
+        `;
+      });
+      html += `</div>`;
+
+      // Mousse
+      html += `<div style="margin-bottom: 1.5rem; padding-bottom: 1rem;">
+        <div style="font-weight: 600; color: #d4347e; margin-bottom: 0.8rem;">Mousse (R$ 67,00/kg)</div>`;
+      
+      const mousses = ['Maracujá', 'Chocolate', 'Leite Ninho', 'Doce de Leite', 'Ouro Branco', 'Chocolate Trufado'];
+      mousses.forEach(item => {
+        html += `
+          <label class="option-item" style="margin-bottom: 0.5rem;">
+            <input type="radio" name="bolo-selection" value="${item}|67">
+            <span class="option-label">${item}</span>
+          </label>
+        `;
+      });
+      html += `</div>`;
+
+      html += `
+            </div>
+            <label style="display: block; margin-bottom: 0.5rem; color: #d4347e; font-weight: 600;">Quantidade (kg):</label>
+            <input type="number" id="bolos-qty" min="0.5" step="0.5" placeholder="Ex: 2.5" style="width: 100%; padding: 0.75rem; border: 2px solid #d4347e; border-radius: 6px; margin-bottom: 1.5rem;">
+            <div class="modal-actions">
+              <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('bolosModal').remove()">Cancelar</button>
+              <button class="modal-btn modal-btn-confirm" onclick="addBoloToCart()">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.insertAdjacentHTML('beforeend', html);
+    }
+
+    function addBoloToCart() {
+      const selected = document.querySelector('input[name="bolo-selection"]:checked');
+      const qty = document.getElementById('bolos-qty').value;
+
+      if (!selected || !qty) {
+        alert('Por favor, selecione o recheio e a quantidade!');
+        return;
+      }
+
+      const [name, price] = selected.value.split('|');
+      monteCart.bolos.push({
+        name: name,
+        qty: parseFloat(qty),
+        unit: 'kg',
+        price: parseFloat(price),
+        total: parseFloat(qty) * parseFloat(price)
+      });
+
+      document.getElementById('bolosModal').remove();
+      updateMonteResumo();
+    }
+
+    function openSalgadosModal() {
+      let html = `
+        <div class="modal-overlay active" id="salgadosModal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span>Salgados</span>
+              <button class="modal-close" onclick="document.getElementById('salgadosModal').remove()">✕</button>
+            </div>
+            <div style="background: #fff5f7; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+              <p style="color: #666; margin-bottom: 0.5rem;">R$ 75,00 por cento (100 unidades)</p>
+              <p style="color: #d4347e; font-weight: 600;">Inclui: Coxinha, Risole, Pastel e Enroladinho</p>
+            </div>
+            <label style="display: block; margin-bottom: 0.5rem; color: #d4347e; font-weight: 600;">Quantidade (cento):</label>
+            <input type="number" id="salgados-qty" min="1" step="1" placeholder="Ex: 2" style="width: 100%; padding: 0.75rem; border: 2px solid #d4347e; border-radius: 6px; margin-bottom: 1.5rem;">
+            <div class="modal-actions">
+              <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('salgadosModal').remove()">Cancelar</button>
+              <button class="modal-btn modal-btn-confirm" onclick="addSalgadosToCart()">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.insertAdjacentHTML('beforeend', html);
+    }
+
+    function addSalgadosToCart() {
+      const qty = document.getElementById('salgados-qty').value;
+
+      if (!qty) {
+        alert('Por favor, insira a quantidade!');
+        return;
+      }
+
+      monteCart.salgados += parseInt(qty);
+      document.getElementById('salgadosModal').remove();
+      updateMonteResumo();
+    }
+
+    function openDocesModal() {
+      let html = `
+        <div class="modal-overlay active" id="docesModal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <span>Doces Tradicionais</span>
+              <button class="modal-close" onclick="document.getElementById('docesModal').remove()">✕</button>
+            </div>
+            <div style="background: #fff5f7; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+              <p style="color: #666; margin-bottom: 0.5rem;">R$ 95,00 por cento (100 unidades)</p>
+              <p style="color: #d4347e; font-weight: 600;">Inclui: Brigadeiro e Beijinho</p>
+            </div>
+            <label style="display: block; margin-bottom: 0.5rem; color: #d4347e; font-weight: 600;">Quantidade (cento):</label>
+            <input type="number" id="doces-qty" min="1" step="1" placeholder="Ex: 2" style="width: 100%; padding: 0.75rem; border: 2px solid #d4347e; border-radius: 6px; margin-bottom: 1.5rem;">
+            <div class="modal-actions">
+              <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('docesModal').remove()">Cancelar</button>
+              <button class="modal-btn modal-btn-confirm" onclick="addDocesToCart()">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.insertAdjacentHTML('beforeend', html);
+    }
+
+    function addDocesToCart() {
+      const qty = document.getElementById('doces-qty').value;
+
+      if (!qty) {
+        alert('Por favor, insira a quantidade!');
+        return;
+      }
+
+      monteCart.doces.push({
+        name: 'Brigadeiro e Beijinho',
+        qty: parseInt(qty),
+        unit: 'cento',
+        price: 95,
+        total: parseInt(qty) * 95
+      });
+
+      document.getElementById('docesModal').remove();
+      updateMonteResumo();
+    }
+
+    function updateMonteResumo() {
+      const resumoContainer = document.getElementById('monteResumoContainer');
+      const resumoItems = document.getElementById('monteResumoItems');
+      const btnFinalizar = document.getElementById('monteFinalizarBtn');
+      
+      let hasItems = false;
+      let totalPrice = 0;
+      let html = '';
+
+      // Bolos
+      if (monteCart.bolos.length > 0) {
+        hasItems = true;
+        monteCart.bolos.forEach((bolo, idx) => {
+          html += `
+            <div class="monte-item-line">
+              <span class="monte-item-name">🍰 ${bolo.name}</span>
+              <span class="monte-item-qty">${bolo.qty} kg</span>
+              <span class="monte-item-price">R$ ${bolo.total.toFixed(2).replace('.', ',')}</span>
+              <button type="button" class="monte-item-remove" onclick="removeFromCart('bolos', ${idx})">✕</button>
+            </div>
+          `;
+          totalPrice += bolo.total;
+        });
+      }
+
+      // Salgados
+      if (monteCart.salgados > 0) {
+        hasItems = true;
+        const totalSalgados = monteCart.salgados * 75;
+        html += `
+          <div class="monte-item-line">
+            <span class="monte-item-name">🥐 Salgados</span>
+            <span class="monte-item-qty">${monteCart.salgados} cento</span>
+            <span class="monte-item-price">R$ ${totalSalgados.toFixed(2).replace('.', ',')}</span>
+            <button type="button" class="monte-item-remove" onclick="removeFromCart('salgados', 0)">✕</button>
+          </div>
+        `;
+        totalPrice += totalSalgados;
+      }
+
+      // Doces
+      if (monteCart.doces.length > 0) {
+        hasItems = true;
+        monteCart.doces.forEach((doce, idx) => {
+          html += `
+            <div class="monte-item-line">
+              <span class="monte-item-name">🍫 ${doce.name}</span>
+              <span class="monte-item-qty">${doce.qty} cento</span>
+              <span class="monte-item-price">R$ ${doce.total.toFixed(2).replace('.', ',')}</span>
+              <button type="button" class="monte-item-remove" onclick="removeFromCart('doces', ${idx})">✕</button>
+            </div>
+          `;
+          totalPrice += doce.total;
+        });
+      }
+
+      if (hasItems) {
+        resumoContainer.style.display = 'block';
+        btnFinalizar.style.display = 'block';
+        resumoItems.innerHTML = html;
+        document.getElementById('monteTotalPrice').textContent = 'R$ ' + totalPrice.toFixed(2).replace('.', ',');
+      } else {
+        resumoContainer.style.display = 'none';
+        btnFinalizar.style.display = 'none';
+      }
+    }
+
+    function removeFromCart(category, index) {
+      if (category === 'bolos') {
+        monteCart.bolos.splice(index, 1);
+      } else if (category === 'salgados') {
+        monteCart.salgados = 0;
+      } else if (category === 'doces') {
+        monteCart.doces.splice(index, 1);
+      }
+      updateMonteResumo();
+    }
+
+    function sendMonteToWhatsapp() {
+      // Construir mensagem com itens do carrinho
+      let message = `*NOVO PEDIDO - MONTE SEU PEDIDO*\n\n`;
+      message += `*ITENS DO PEDIDO:*\n`;
+
+      // Bolos
+      if (monteCart.bolos.length > 0) {
+        monteCart.bolos.forEach(bolo => {
+          message += `🍰 ${bolo.name} - ${bolo.qty}kg - R$ ${bolo.total.toFixed(2)}\n`;
+        });
+      }
+
+      // Salgados
+      if (monteCart.salgados > 0) {
+        message += `🥐 Salgados - ${monteCart.salgados} cento - R$ ${(monteCart.salgados * 75).toFixed(2)}\n`;
+      }
+
+      // Doces
+      if (monteCart.doces.length > 0) {
+        monteCart.doces.forEach(doce => {
+          message += `🍫 ${doce.name} - ${doce.qty} cento - R$ ${doce.total.toFixed(2)}\n`;
+        });
+      }
+
+      // Total
+      let total = 0;
+      monteCart.bolos.forEach(b => total += b.total);
+      total += monteCart.salgados * 75;
+      monteCart.doces.forEach(d => total += d.total);
+
+      message += `\n*TOTAL: R$ ${total.toFixed(2)}*`;
+
+      // Codificar e enviar via WhatsApp
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/5542999902061?text=${encodedMessage}`, '_blank');
+
+      // Limpar carrinho
+      monteCart = { bolos: [], salgados: 0, doces: [] };
+      updateMonteResumo();
+    }
+
+    // Fechar modal ao clicar fora
+    document.getElementById('kitModal').addEventListener('click', (e) => {
+      if (e.target.id === 'kitModal') {
+        closeKitModal();
+      }
+    });
+
+    function renderFeaturedProducts() {
+      const featured = document.getElementById('featuredProducts');
+      if (!featured) return;
+    
+
+      const featuredItems = [
+    { 
+      name: 'Bolo Confeitado', 
+      image: 'img/bolo.jpg', 
+      description: 'Delicioso e bem recheado', 
+      price: 'A partir de R$ 60,00', 
+      category: 'bolos' 
+    },
+    { 
+      name: 'Salgados Fresquinho', 
+      image: 'img/salgado.jpg', 
+      description: 'Crocante e saboroso', 
+      price: 'A partir de R$ 75,00', 
+      category: 'salgados' 
+    },
+    { 
+      name: 'Brigadeiro Tradicional', 
+      image: 'img/doce.jpg', 
+      description: 'O clássico das festas', 
+      price: 'A partir de R$ 90,00', 
+      category: 'doce' 
+    },
+    { 
+      name: 'Kit Festa', 
+      image: 'img/kitfesta.jpg', 
+      description: 'Completo e delicioso', 
+      price: 'A partir de R$ 205,00', 
+      category: 'kitfesta' 
+    }
+  ];
+
+      featuredItems.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.style.cursor = 'pointer';
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" loading="lazy" style="width: 100%; height: 200px; object-fit: cover; display: block;" onerror="this.style.background='linear-gradient(135deg, #f08acc 0%, #f5c2d9 100%)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.textContent='📷';">
+          <div class="product-info">
+            <div class="product-name">${item.name}</div>
+            <div class="product-description">${item.description}</div>
+            <div class="product-price">${item.price}</div>
+          </div>
+        `;
+        card.addEventListener('click', () => {
+          currentCategory = item.category;
+          currentSubcategory = item.category === 'bolos' ? 'especial' : item.category === 'doce' ? 'tradicional' : 'default';
+          navigateToSection('cardapio');
+          updateFilters();
+          renderProducts();
+        });
+        featured.appendChild(card);
+      });
+    }
+
+    function updateFilters() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.includes(currentCategory === 'bolos' ? 'Bolos' : 
+                                     currentCategory === 'salgados' ? 'Salgados' :
+                                     currentCategory === 'doce' ? 'Doces' :
+                                     currentCategory === 'kitfesta' ? 'Kit Festa' : '')) {
+          btn.classList.add('active');
+        }
+      });
+
+      document.getElementById('bolosSubcategories').classList.remove('active');
+
+      if (currentCategory === 'bolos') {
+        document.getElementById('bolosSubcategories').classList.add('active');
+        document.querySelectorAll('#bolosSubcategories .subcategory-btn').forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.textContent.includes('Recheio Especial')) btn.classList.add('active');
+        });
+      }
+
+      updatePriceInfo();
+    }
+
+    renderFeaturedProducts();
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const message = document.getElementById('message').value;
+
+      successMessage.classList.add('show');
+      contactForm.reset();
+
+      setTimeout(() => {
+        successMessage.classList.remove('show');
+      }, 4000);
+    }
+
+    // Element SDK
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: (newConfig) => {
+        config = newConfig;
+        document.querySelector('.nav-title').textContent = config.site_title || defaultConfig.site_title;
+        footer.textContent = config.footer_text || defaultConfig.footer_text;
+      },
+      mapToCapabilities: (config) => ({
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['site_title', config.site_title || defaultConfig.site_title],
+        ['footer_text', config.footer_text || defaultConfig.footer_text]
+      ])
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f4cbef2c6240353',t:'MTc3NzYxNzExNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
